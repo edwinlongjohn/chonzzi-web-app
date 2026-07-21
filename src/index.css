@@ -1,0 +1,145 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand tokens */
+  --color-plum: var(--plum);
+  --color-plum-deep: var(--plum-deep);
+  --color-emerald: var(--emerald);
+  --color-emerald-soft: var(--emerald-soft);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+  --color-line: var(--line);
+  --color-lilac: var(--lilac);
+  --color-tint: var(--tint);
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Merriweather", Georgia, serif;
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Brand palette (from the prototype) */
+  --plum: oklch(0.24 0.10 320);
+  --plum-deep: oklch(0.19 0.09 320);
+  --emerald: oklch(0.48 0.11 155);
+  --emerald-soft: oklch(0.56 0.11 155);
+  --gold: oklch(0.75 0.13 85);
+  --gold-soft: oklch(0.86 0.10 90);
+  --cream: oklch(0.975 0.012 85);
+  --tint: oklch(0.95 0.013 80);
+  --ink: oklch(0.22 0.03 320);
+  --line: oklch(0.90 0.013 80);
+  --lilac: oklch(0.68 0.06 305);
+
+  /* Shadcn semantic tokens mapped to brand */
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ink);
+  --primary: var(--plum);
+  --primary-foreground: oklch(0.98 0.005 85);
+  --secondary: var(--tint);
+  --secondary-foreground: var(--plum);
+  --muted: var(--tint);
+  --muted-foreground: oklch(0.48 0.02 305);
+  --accent: var(--gold);
+  --accent-foreground: var(--plum-deep);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.98 0.005 85);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--gold);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-serif);
+    font-size: 17px;
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: var(--color-plum);
+  }
+  h1 { font-size: clamp(2.1rem, 4.8vw, 3.4rem); line-height: 1.1; letter-spacing: -0.01em; }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.15rem); line-height: 1.18; }
+  h3 { font-size: 1.14rem; }
+  .dark-surface h1, .dark-surface h2, .dark-surface h3, .dark-surface h4 { color: #fff; }
+  a { color: var(--color-emerald); }
+  input, button, textarea, select { font: inherit; }
+}
+
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 26px;
+    height: 2px;
+    background: currentColor;
+    margin-right: 10px;
+    opacity: 0.8;
+  }
+}
+
+@utility lead {
+  font-family: var(--font-serif);
+  font-size: 1.13rem;
+  color: var(--color-muted-foreground);
+  max-width: 660px;
+  line-height: 1.72;
+}
+
+@utility mono {
+  font-family: var(--font-sans);
+}
