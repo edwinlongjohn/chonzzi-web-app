@@ -13,7 +13,7 @@ export default function AdminProtectedLayout() {
     if (!isAuthenticated && !user) {
       setIsRedirecting(true);
       console.log('User is not authenticated. Redirecting to login page.');
-      navigate('/login');
+      navigate('/authentication/login');
     }
   }, [isAuthenticated, isLoading, navigate, isRedirecting, user]);
 
