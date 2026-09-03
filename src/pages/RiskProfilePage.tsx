@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
-import { Fragment, useEffect, useRef, useState } from "react";
+import {Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/site/Container";
 import { Section } from "@/components/site/Section";
 import { Eyebrow } from "@/components/site/Eyebrow";
-import { BrandButton, BrandAnchor } from "@/components/site/BrandButton";
-import { QuizQuestion, PillarHead } from "@/components/quiz/QuizQuestion";
+import { BrandAnchor } from "@/components/site/BrandButton";
+import { QuizWizard, QuizIntroCard, type WizardQuestion } from "@/components/quiz/QuizWizard";
 import { ResultGate } from "@/components/quiz/ResultGate";
 import { RP_Q, RP_DIMS, RP_LEVELS } from "@/data/assessments";
 
@@ -19,25 +19,22 @@ const DIM_HEADS = [
 export default function RiskProfilePage() {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
-  const [answers, setAnswers] = useState<Record<number, number>>({});
-  const [warn, setWarn] = useState("");
+  const [answers, setAnswers] = useState<Record<number, string>>({});
   const [result, setResult] = useState<null | {
     level: (typeof RP_LEVELS)[number];
     split: string | null;
   }>(null);
   const resRef = useRef<HTMLDivElement>(null);
 
+  const questions: WizardQuestion[] = RP_Q.map((q) => ({
+    text: q.t,
+    section: DIM_HEADS[q.d],
+    options: q.o.map((label, j) => ({ label, value: String(j) })),
+  }));
+
   const submit = () => {
-    for (let i = 0; i < RP_Q.length; i++) {
-      if (answers[i] === undefined) {
-        setWarn(`Answer all 12 questions, ${i + 1} is waiting.`);
-        return;
-      }
-    }
-    setWarn("");
     const D = RP_DIMS.map((d) => ({ ...d, score: 0 }));
-    for (let i = 0; i < RP_Q.length; i++) D[RP_Q[i].d].score += 3 - answers[i];
-    D.forEach((d) => ((d as unknown as { pct: number }).pct = d.score / d.max));
+    for (let i = 0; i < RP_Q.length; i++) D[RP_Q[i].d].score += 3 - Number(answers[i]);
     const totalW = D.reduce((a, d) => a + d.w, 0);
     const blend = D.reduce((a, d) => a + (d.score / d.max) * d.w, 0) / totalW;
     const capPct = D[1].score / D[1].max;
@@ -60,24 +57,27 @@ export default function RiskProfilePage() {
     if (result) resRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [result]);
 
-  let lastDim = -1;
   return (
     <>
-      <Section tight className="!pt-14">
+      <Section tight className="!pt-14 !pb-8">
         <Container>
-          <Eyebrow>Free · 2 minutes · 12 questions</Eyebrow>
-          <h1 className="my-3">Your Risk Profile</h1>
-          <p className="lead">
-            Before your money takes any risk, know how much risk is actually yours to take. Your age
-            shapes the suggested split — add it below.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
+          <QuizIntroCard
+            eyebrow="Risk Profile"
+            title="Your Risk Profile"
+            description="Before your money takes any risk, know how much risk is actually yours to take. Your age shapes the suggested split, add it below."
+            meta={[
+              { label: "Time", value: "2 min" },
+              { label: "Questions", value: "12" },
+              { label: "Result", value: "With split" },
+            ]}
+          />
+          <div className="mt-6 flex flex-wrap gap-3">
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your first name (optional)"
-              className="max-w-[240px] rounded-lg border border-line bg-white px-[15px] py-3"
+              className="w-full max-w-[240px] rounded-xl border border-line bg-white/80 px-[15px] py-3 shadow-sm backdrop-blur focus:border-plum/40 focus:outline-none"
             />
             <input
               type="number"
@@ -86,7 +86,7 @@ export default function RiskProfilePage() {
               placeholder="Your age"
               min={16}
               max={90}
-              className="max-w-[140px] rounded-lg border border-line bg-white px-[15px] py-3"
+              className="w-full max-w-[140px] rounded-xl border border-line bg-white/80 px-[15px] py-3 shadow-sm backdrop-blur focus:border-plum/40 focus:outline-none"
             />
           </div>
         </Container>
@@ -94,32 +94,17 @@ export default function RiskProfilePage() {
 
       <Section tight className="!pt-0">
         <Container>
-          {RP_Q.map((q, i) => {
-            const showDim = q.d !== lastDim;
-            lastDim = q.d;
-            return (
-              <Fragment key={i}>
-                {showDim && <PillarHead>{DIM_HEADS[q.d]}</PillarHead>}
-                <QuizQuestion
-                  index={i}
-                  text={q.t}
-                  name={`rq${i}`}
-                  options={q.o.map((label, j) => ({ label, value: String(j) }))}
-                  selected={answers[i] !== undefined ? String(answers[i]) : undefined}
-                  onSelect={(v) => setAnswers({ ...answers, [i]: +v })}
-                />
-              </Fragment>
-            );
-          })}
-          <p className="mt-4 flex flex-wrap items-center gap-3">
-            <BrandButton variant="gold" onClick={submit}>
-              Show my profile
-            </BrandButton>
-            <span className="text-[0.85rem] text-muted-foreground">{warn}</span>
-          </p>
+          <QuizWizard
+            questions={questions}
+            answers={answers}
+            onAnswer={(i, v) => setAnswers({ ...answers, [i]: v })}
+            onSubmit={submit}
+            submitLabel="Show my profile"
+            accent="gold"
+          />
 
           {result && (
-            <div ref={resRef} className="mt-7 rounded-[14px] border-2 border-plum bg-white p-8">
+            <div ref={resRef} className="mt-8 rounded-[22px] border border-gold/30 bg-white/80 p-8 backdrop-blur-xl shadow-[0_28px_60px_-30px_rgba(201,162,39,0.4)]">
               <Eyebrow>Your profile{name && `, ${name.toUpperCase()}`}</Eyebrow>
               <h2 className="mt-2.5">{result.level.name}</h2>
               <p className="my-3">{result.level.blurb}</p>
@@ -140,19 +125,19 @@ export default function RiskProfilePage() {
               )}
               <ResultGate
                 title="Your full profile is ready."
-                description="Your complete risk breakdown, your suggested asset split, and what it means for your first investments — sent to your inbox so you can keep it."
+                description="Your complete risk breakdown, your suggested asset split, and what it means for your first investments, sent to your inbox so you can keep it."
                 buttonLabel="Send my full profile"
                 buttonVariant="gold"
               />
               <hr className="my-6 border-line" />
               <h3>The next step</h3>
               <p className="mt-2">
-                Modules 9 and 10 of the Course turn this profile into an actual investment plan —
+                Modules 9 and 10 of the Course turn this profile into an actual investment plan ,
                 the fundamentals, then every option open to the everyday Nigerian.
               </p>
               <div className="mt-3">
                 <BrandAnchor variant="primary" href="https://moneysimplified.chonzzi.com/course">
-                  Enrol in the Course — ₦35,000
+                  Enrol in the Course, ₦35,000
                 </BrandAnchor>
               </div>
               <p className="mt-4 text-[0.85rem] text-muted-foreground">

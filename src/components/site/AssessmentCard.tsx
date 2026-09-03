@@ -1,16 +1,22 @@
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
 
 type Tone = "mp" | "fhc" | "rp";
 const toneBar: Record<Tone, string> = {
-  mp: "bg-lilac",
-  fhc: "bg-emerald",
-  rp: "bg-gold",
+  mp: "from-lilac to-plum",
+  fhc: "from-emerald to-emerald-soft",
+  rp: "from-gold to-gold-soft",
 };
 const ctaClass: Record<Tone, string> = {
   mp: "bg-plum text-white",
   fhc: "bg-emerald text-white",
   rp: "bg-gold text-plum-deep",
+};
+const toneGradient: Record<Tone, string> = {
+  mp: "linear-gradient(180deg, oklch(0.97 0.02 305) 0%, oklch(1 0 0) 60%)",
+  fhc: "linear-gradient(180deg, oklch(0.97 0.02 155) 0%, oklch(1 0 0) 60%)",
+  rp: "linear-gradient(180deg, oklch(0.97 0.03 85) 0%, oklch(1 0 0) 60%)",
 };
 
 export function AssessmentCard({
@@ -33,10 +39,23 @@ export function AssessmentCard({
   to: string;
 }) {
   return (
-    <div className="relative flex flex-col gap-3 rounded-[14px] border border-line bg-white p-7 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(24,0,38,0.12)]">
+    <div
+      style={{ background: toneGradient[tone] }}
+      className="group relative flex flex-col gap-3 overflow-hidden rounded-[16px] border border-line p-7 transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-transparent hover:shadow-[0_28px_60px_-24px_rgba(24,0,38,0.25)]"
+    >
+      {/* Hover-reveal gradient bar */}
       <span
+        aria-hidden
         className={cn(
-          "absolute left-7 right-7 top-0 h-1 rounded-b",
+          "absolute left-0 top-0 h-[3px] w-0 rounded-b bg-gradient-to-r transition-all duration-500 ease-out group-hover:w-full",
+          toneBar[tone],
+        )}
+      />
+      {/* Corner accent */}
+      <span
+        aria-hidden
+        className={cn(
+          "absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-40",
           toneBar[tone],
         )}
       />
@@ -56,11 +75,12 @@ export function AssessmentCard({
       <Link
         to={to}
         className={cn(
-          "self-start rounded-lg px-[22px] py-3 font-mono text-[0.85rem] font-bold no-underline transition hover:-translate-y-0.5 hover:shadow-[0_10px_26px_rgba(24,0,38,0.2)]",
+          "group/cta inline-flex items-center gap-2 self-start rounded-lg px-[22px] py-3 font-mono text-[0.85rem] font-bold no-underline transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_26px_rgba(24,0,38,0.22)] hover:pr-7",
           ctaClass[tone],
         )}
       >
         {ctaLabel}
+        <ArrowRight size={16} className="transition-transform duration-300 group-hover/cta:translate-x-1" />
       </Link>
     </div>
   );

@@ -143,3 +143,72 @@
 @utility mono {
   font-family: var(--font-sans);
 }
+
+@keyframes imageFloat {
+  0% {
+    transform: translateY(0px) scale(1) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-6px) scale(1.01) rotate(-0.5deg);
+  }
+
+  50% {
+    transform: translateY(-10px) scale(1.02) rotate(0deg);
+  }
+
+  75% {
+    transform: translateY(-6px) scale(1.01) rotate(0.5deg);
+  }
+
+  100% {
+    transform: translateY(0px) scale(1) rotate(0deg);
+  }
+}
+
+.animate-image-float {
+  animation: imageFloat 8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes imagePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.025);
+  }
+}
+
+.animate-image-pulse {
+  animation: imagePulse 6s ease-in-out infinite;
+}
+
+@keyframes imageDrift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translate3d(5px, -3px, 0) rotate(0.4deg);
+  }
+
+  50% {
+    transform: translate3d(0, -8px, 0) rotate(0deg);
+  }
+
+  75% {
+    transform: translate3d(-5px, -3px, 0) rotate(-0.4deg);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+.animate-image-drift {
+  animation: imageDrift 12s ease-in-out infinite;
+  transform-origin: center;
+}

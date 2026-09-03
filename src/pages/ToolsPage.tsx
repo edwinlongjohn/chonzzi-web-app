@@ -1,147 +1,111 @@
-// import { Link } from "react-router-dom";
-// import { Button } from "@/components/ui/button";
-// import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-// import { PageHeader } from "@/components/shared/PageHeader";
-
-// export default function ToolsPage() {
-//   const assessments = [
-//     {
-//       id: 'personality',
-//       tag: 'Assessment 01',
-//       title: 'Money Personality',
-//       question: '"Why do I handle money this way?"',
-//       desc: 'The saver, the avoider, the worrier, the spender — most of us carry more than one. Discover yours, and what it means for your next money decision.',
-//       meta: ['2 min', '10 questions', 'Result by email'],
-//       color: 'lilac',
-//       btnText: 'Find my personality'
-//     },
-//     {
-//       id: 'health-check',
-//       tag: 'Assessment 02',
-//       title: 'Financial Health Check',
-//       question: '"Where do I stand right now?"',
-//       desc: 'Eighteen honest questions across six areas of your financial life — clarity, safety net, debt, growth, future, and agency. See exactly where the gaps are.',
-//       meta: ['3 min', '18 questions', 'Result by email'],
-//       color: 'emerald',
-//       btnText: 'Check my health'
-//     },
-//     {
-//       id: 'risk-profile',
-//       tag: 'Assessment 03',
-//       title: 'Risk Profile',
-//       question: '"How should I invest?"',
-//       desc: 'Before your money takes any risk, know how much risk is actually yours to take — with a suggested investment split shaped by your age and temperament.',
-//       meta: ['2 min', '12 questions', 'Result by email'],
-//       color: 'gold',
-//       btnText: 'Find my profile'
-//     }
-//   ];
-
-//   return (
-//     <div className="flex flex-col min-h-screen">
-//       <PageHeader 
-//         eyebrow="FREE · NO ACCOUNT NEEDED · MINUTES EACH"
-//         title="Know your money."
-//         description="Three assessments. Three different questions about you and your money. Take one, or take all three — each ends with your result and your next step."
-//         className="text-center"
-//       />
-      
-//       <section className="py-16 lg:py-20 px-6 bg-cream">
-//         <div className="container max-w-7xl mx-auto">
-//           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-//             {assessments.map((a) => (
-//               <Card key={a.id} className="bg-white relative overflow-hidden shadow-sm">
-//                 <div className={`absolute top-0 left-8 right-8 h-1 bg-${a.color}`}></div>
-//                 <CardHeader>
-//                   <p className="text-xs font-bold tracking-widest uppercase text-muted">{a.tag}</p>
-//                   <CardTitle className="font-heading text-xl text-plum mt-1">{a.title}</CardTitle>
-//                   <CardDescription className="font-heading text-lg text-plum/80 font-semibold italic">{a.question}</CardDescription>
-//                 </CardHeader>
-//                 <CardContent className="flex flex-col flex-1 gap-4">
-//                   <p className="text-sm text-muted flex-1">{a.desc}</p>
-//                   <div className="flex gap-3 text-[10px] font-bold tracking-widest uppercase text-muted">
-//                     {a.meta.map((m, idx) => <span key={idx}>{m}</span>)}
-//                   </div>
-//                   <Link to={`/tools/${a.id}`} className="mt-auto">
-//                     <Button className={`w-full ${a.color === 'lilac' ? 'bg-plum' : a.color === 'emerald' ? 'bg-emerald' : 'bg-gold text-plum-deep'} text-white hover:opacity-90`}>
-//                       {a.btnText}
-//                     </Button>
-//                   </Link>
-//                 </CardContent>
-//               </Card>
-//             ))}
-//           </div>
-//           <p className="text-center text-sm text-muted max-w-4xl mx-auto">
-//             Your answers stay on this page unless you choose to email yourself the results. Emailing your result adds you to the Money Simplified letter — you can leave any time.
-//           </p>
-//         </div>
-//       </section>
-//     </div>
-//   );
-// }
-
-
 import { Container } from "@/components/site/Container";
 import { Section } from "@/components/site/Section";
 import { Eyebrow } from "@/components/site/Eyebrow";
 import { AssessmentCard } from "@/components/site/AssessmentCard";
+import { HeroBackground } from "@/components/site/HeroBackground";
+import { ShieldCheck, Mail } from "lucide-react";
 
+// export const Route = createFileRoute("/assessments/")({
+//   head: () => ({
+//     meta: [
+//       { title: "Free Assessments, The Chonzzi Company" },
+//       { name: "description", content: "Three free assessments: Money Personality, Financial Health Check, and Risk Profile. Minutes each, no account needed." },
+//       { property: "og:title", content: "Free Assessments, The Chonzzi Company" },
+//       { property: "og:description", content: "Know your money. Three short assessments." },
+//     ],
+//   }),
+//   component: AssessmentsHub,
+// });
 
-
-export default function ToolsPage() {
+export default function AssessmentsHub() {
   return (
     <>
-      <Section variant="plum">
+      <HeroBackground className="dark-surface py-20 md:py-[84px] text-[#EFEAE2]">
         <Container>
           <div className="text-center">
             <Eyebrow center>Free · no account needed · minutes each</Eyebrow>
             <h1 className="mx-auto mt-4 max-w-[700px] text-white">Know your money.</h1>
             <p className="lead mx-auto mt-4 text-[#CFC8BE]">
               Three assessments. Three different questions about you and your money. Take one, or
-              take all three — each ends with your result and your next step.
+              take all three, each ends with your result and your next step.
             </p>
           </div>
         </Container>
-      </Section>
+      </HeroBackground>
 
       <Section>
         <Container>
           <div className="grid gap-6 md:grid-cols-3">
             <AssessmentCard
               tone="mp"
-              tag="Assessment 01"
+              tag="Money Personality Assessment"
               title="Money Personality"
-              question="Why do I handle money this way?"
-              description="The saver, the avoider, the worrier, the spender — most of us carry more than one. Discover yours, and what it means for your next money decision."
-              meta={["2 min", "10 questions", "Result by email"]}
-              ctaLabel="Find my personality"
-              to="/tools/personality"
+              question="What is my money personality?"
+              description="Are you a saver, an avoider, a warrior, or a spender?"
+              meta={["~5 min", "16 questions", "Result by email"]}
+              ctaLabel="My personality is…"
+              to="/assessments/personality"
             />
             <AssessmentCard
               tone="fhc"
-              tag="Assessment 02"
+              tag="Financial Health Check"
               title="Financial Health Check"
               question="Where do I stand right now?"
-              description="Eighteen honest questions across six areas of your financial life — clarity, safety net, debt, growth, future, and agency. See exactly where the gaps are."
-              meta={["3 min", "18 questions", "Result by email"]}
-              ctaLabel="Check my health"
-              to="/tools/health-check"
+              description="18 honest questions across 6 areas of your financial life, and a score that shows you exactly where the gaps are."
+              meta={["~5 min", "18 questions", "Result by email"]}
+              ctaLabel="Are my finances in order?"
+              to="/assessments/health-check"
             />
             <AssessmentCard
               tone="rp"
-              tag="Assessment 03"
+              tag="Risk Profile Assessment"
               title="Risk Profile"
-              question="How should I invest?"
-              description="Before your money takes any risk, know how much risk is actually yours to take — with a suggested investment split shaped by your age and temperament."
-              meta={["2 min", "12 questions", "Result by email"]}
-              ctaLabel="Find my profile"
-              to="/tools/risk-profile"
+              question="How much risk am I willing to take?"
+              description="Before your money takes any risk, know how much risk is actually yours to take, with a suggested investment split shaped by your age and temperament."
+              meta={["~3 min", "12 questions", "Result by email"]}
+              ctaLabel="What's my risk profile?"
+              to="/assessments/risk-profile"
             />
           </div>
-          <p className="mt-8 text-center text-[0.85rem] text-muted-foreground">
-            Your answers stay on this page unless you choose to email yourself the results. Emailing
-            your result adds you to the Money Simplified letter — you can leave any time.
-          </p>
+
+          {/* Redesigned privacy/consent note */}
+          <div
+            className="mt-10 overflow-hidden rounded-[20px] border border-plum/10"
+            style={{
+              background:
+                "linear-gradient(135deg, oklch(0.98 0.02 305) 0%, oklch(0.95 0.04 305) 100%)",
+            }}
+          >
+            <div className="grid gap-0 md:grid-cols-2">
+              <div className="flex gap-4 p-7 md:border-r md:border-plum/10">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-emerald shadow-sm">
+                  <ShieldCheck size={22} />
+                </span>
+                <div>
+                  <h4 className="mb-1.5 font-display text-[1.05rem] font-semibold text-plum">
+                    Private by default
+                  </h4>
+                  <p className="m-0 text-[0.9rem] leading-relaxed text-muted-foreground">
+                    Your answers stay on this page unless you choose to email yourself the results.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4 p-7">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-gold shadow-sm">
+                  <Mail size={22} />
+                </span>
+                <div>
+                  <h4 className="mb-1.5 font-display text-[1.05rem] font-semibold text-plum">
+                    If you email your result
+                  </h4>
+                  <p className="m-0 text-[0.9rem] leading-relaxed text-muted-foreground">
+                    Emailing your result adds you to the Money Simplified letter, you can leave any
+                    time.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </Container>
       </Section>
     </>

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { EmailCapture } from "@/components/site/EmailCapture";
+import { EmailCapture } from "../site/EmailCapture";
 
 export function ResultGate({
   title,
@@ -22,7 +22,7 @@ export function ResultGate({
         <EmailCapture
           buttonLabel={buttonLabel}
           buttonVariant={buttonVariant}
-          successMessage="Sent — check your inbox. (Prototype: this connects to Kit in the live build.)"
+          successMessage="Sent, check your inbox. (Prototype: this connects to Kit in the live build.)"
         />
       </div>
       <p className="mt-2.5 text-[0.85rem] text-muted-foreground">
