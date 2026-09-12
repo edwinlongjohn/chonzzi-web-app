@@ -273,8 +273,8 @@ export const RP_DIMS = [
   {
     name: "Risk tolerance",
     max: 9,
-    w: 0.3,
-    labs: ["Cautious", "Measured", "Bold"],
+    w: 0.30,
+    labs: ["Cautious", "Measured", "Bold"], // [low, mid, high]
   },
   {
     name: "Risk capacity",
@@ -291,28 +291,34 @@ export const RP_DIMS = [
   {
     name: "Return expectations",
     max: 6,
-    w: 0.2,
+    w: 0.20,
     labs: ["Safety-first", "Inflation-beating", "Growth-seeking"],
   },
 ];
 
 export type RpQuestion = { d: number; t: string; o: string[] };
+
+/**
+ * Option order is fixed: boldest first (scores 3), most cautious last (scores 0).
+ * Never reorder these. Score by position (3, 2, 1, 0), not by matching label text.
+ */
 export const RP_Q: RpQuestion[] = [
+  // ---- Risk tolerance (Q1–Q3) ----
   {
     d: 0,
-    t: "Imagine you invested ₦1,000,000 and within three months it had fallen to ₦750,000. What would you most likely do?",
+    t: "Imagine you invested ₦1,000,000 and within three months it had fallen to ₦800,000. Your honest first instinct would be to...",
     o: [
-      "Buy more while it is cheaper, this is the opportunity I was waiting for",
-      "Hold, and wait for it to recover, I understand markets move",
+      "Buy more while it is cheaper — this is the opportunity I was waiting for",
+      "Hold, and wait for it to recover — I understand markets move",
       "Feel uneasy, and seriously consider moving what is left to safety",
-      "Sell to stop the bleeding, I could not sleep watching it fall",
+      "Sell to stop the bleeding — I could not sleep watching it fall",
     ],
   },
   {
     d: 0,
     t: "Which statement sounds most like you?",
     o: [
-      "I would rather aim high and accept some sleepless nights for a bigger outcome",
+      "I would rather aim high and accept some sleepless nights for a bigger reward",
       "I want growth, but only if I can mostly sleep at night",
       "I prefer steady and predictable, even if it grows slowly",
       "I would rather my money never fall in value, full stop",
@@ -320,89 +326,95 @@ export const RP_Q: RpQuestion[] = [
   },
   {
     d: 0,
-    t: "A friend tells you about an investment that could double in three years, or lose most of its value. You…",
+    t: "A friend tells you about an investment that could double in three years — or lose half. You...",
     o: [
       "Are intrigued, and would put in money I can afford to lose",
       "Would consider a small amount, after my own research",
       "Would feel the pull, but most likely pass",
-      "Want nothing to do with it, that is gambling, not investing",
+      "Want nothing to do with it — that is gambling, not investing",
     ],
   },
+
+  // ---- Risk capacity (Q4–Q7) ----
   {
     d: 1,
-    t: "If an investment lost a third of its value and stayed down for two years, your daily life would…",
+    t: "If an investment lost a third of its value and stayed down for two years, your day-to-day life would...",
     o: [
-      "Be entirely unaffected, that money is not needed for years",
+      "Be entirely unaffected — that money is not needed for years",
       "Feel it slightly, but my essentials would still be covered",
-      "Be strained, I would have to adjust how I live",
-      "Be in real trouble, I depend on that money",
+      "Be strained — I would have to adjust how I live",
+      "Be in real trouble — I depend on that money",
     ],
   },
   {
     d: 1,
-    t: "Beyond what you might invest, how solid is your financial base, emergency fund, income, debt?",
+    t: "Beyond what you might invest, how solid is your financial base — emergency fund, stable income, manageable debt?",
     o: [
-      "Very solid, strong emergency fund, secure income, little or no debt",
-      "Reasonably solid, a cushion exists, income is fairly stable, and debt is manageable",
-      "Thin, little cushion, or income that comes and goes, or debt repayments that bite",
-      "Fragile, no real cushion, and money is tight most months",
+      "Very solid — strong emergency fund, secure income, little or no debt",
+      "Reasonably solid — a cushion exists, income is fairly stable, and debt is manageable",
+      "Thin — little cushion, or income that comes and goes, or debt repayment is a strain",
+      "Fragile — no real cushion, and money is tight most months",
     ],
   },
   {
     d: 1,
-    t: "How much of the money you are thinking of investing might you need within the next three years?",
+    t: "How much of the money you are thinking of investing might you need to reach within the next two years?",
     o: [
       "None of it",
-      "A small amount, under 25%",
+      "A small amount — under 25%",
       "Possibly close to 50%",
-      "More than half, possibly all of it could be needed soon",
+      "More than half — possibly all of it could be needed soon",
     ],
   },
   {
     d: 1,
-    t: "If you lost your main income tomorrow, how long could you hold on without touching investments?",
+    t: "If you lost your main income tomorrow, how long could you hold on without selling your investments?",
     o: [
-      "A year or more, I have emergency funds and other sources of income",
-      "Several months, enough to ride out most storms",
+      "A year or more — I have emergency funds and other sources of income",
+      "Several months — enough to ride out most storms",
       "A month or two at best",
       "I would have to sell almost immediately",
     ],
   },
+
+  // ---- Investing experience (Q8–Q10) ----
   {
     d: 2,
     t: "How would you describe your experience with investing so far?",
     o: [
-      "Experienced, I have held investments through ups and downs",
-      "Some, I have invested in a few things and broadly understand how they behave",
-      "Little, mostly savings and treasury bills; I have not ventured much beyond",
-      "None yet, this would be new ground for me",
+      "Experienced — I have held investments (stocks, funds, property etc.) through ups and downs",
+      "Some — I have invested in a few things and broadly understand how they work",
+      "Little — mostly savings, treasury bills; I have not ventured much beyond that",
+      "None yet — this would be new ground for me",
     ],
   },
   {
     d: 2,
-    t: 'When you hear that an investment is "higher risk", what does that mean to you?',
+    t: "When you hear that an investment is 'higher risk', what does that mean to you?",
     o: [
       "Higher potential return, with a real and understood chance of loss along the way",
-      "It could grow more, and it could also fall, I understand this and can weigh it",
+      "It could grow more, and it could also fall — I understand this and can handle it to an extent",
       "It sounds dangerous, though I am not fully sure why",
       "I am not certain what that means in practice",
     ],
   },
   {
     d: 2,
-    t: "How comfortable are you telling the difference between a money market fund, a bond and a stock?",
+    t: "How comfortable are you telling the difference between a money market fund, a stock, and a real estate investment?",
     o: [
-      "Very, I understand how each behaves and why",
-      "Fairly, I know the broad differences",
-      "A little, I have heard the terms but could not explain them well",
-      "Not at all, these are mostly just words to me right now",
+      "Very — I understand how each behaves and why",
+      "Fairly — I know the broad differences",
+      "A little — I have heard the terms but could not explain them well",
+      "Not at all — these are mostly just words to me right now",
     ],
   },
+
+  // ---- Return expectations (Q11–Q12) ----
   {
     d: 3,
     t: "What is the main job you want this money to do?",
     o: [
-      "Grow as much as possible over the long run, I am building wealth",
+      "Grow as much as possible over the long run — I am building wealth",
       "Grow steadily, ahead of inflation, without wild swings",
       "Hold its value and earn a little, safely",
       "Stay completely safe and available whenever I need it",
@@ -410,33 +422,62 @@ export const RP_Q: RpQuestion[] = [
   },
   {
     d: 3,
-    t: "Which return would you be most satisfied with, knowing higher return means bigger swings?",
+    t: "Which return would you be most satisfied with, knowing higher return means higher risk?",
     o: [
-      "Well above inflation, I want my money to grow significantly",
-      "At or above inflation, I want my money to at least hold its real value",
-      "A modest positive return, stability matters more than beating prices",
-      "My principal guaranteed, I will accept lower returns for certainty",
+      "Well above inflation — I want my money to grow significantly, and I accept some losing years",
+      "At or above inflation — I want my money to at least hold its real value",
+      "A modest positive return — stability matters more than beating prices",
+      "My principal guaranteed — I will accept lower returns for certainty",
     ],
   },
 ];
 
+/**
+ * Profile names and paragraphs (PDF §8.1). Order: Level 1 → 3.
+ */
 export const RP_LEVELS = [
   {
     name: "Conservative",
     blurb:
-      "Your instinct is to protect first, grow second, and that is a legitimate way to run money, as long as it is a decision and not a fear. Your money should still outpace inflation where it safely can.",
+      "Your instinct is to protect first and grow second, and that is a legitimate way to invest. You feel a loss more than you enjoy a gain, and your financial base may not yet be ready to absorb a steep fall. The work here is not to make yourself braver. It is to build the cushion and the understanding that would make more risk appropriate later, if you decide you want it.",
   },
   {
     name: "Balanced",
     blurb:
-      "You want your money to grow, but not at the cost of your peace. You can carry measured risk, and measured is the operative word: a genuine mix, rebalanced, with a floor under it.",
+      "You want your money to grow, but not at the cost of your peace. You can sit through reasonable ups and downs, your base can take a knock without breaking, and you understand enough to know what you are signing up for. This is the profile most long-term wealth is built from: enough risk to at least keep pace with inflation, and enough restraint to stay invested when the market falls.",
   },
   {
     name: "Growth",
     blurb:
-      "You are comfortable with volatility as the price of long-term reward, and your base can carry it. Discipline, diversification and time horizon are what turn that comfort into results.",
+      "You are comfortable with volatility as the price of long-term reward, and you have the financial base and the understanding to back that comfort up. A fall does not push you out of the market, and you do not need this money soon. One caution: make sure that boldness is spread across several holdings rather than concentrated in one.",
   },
 ];
+
+/**
+ * Alignment notes (PDF §8.2). Indexed by variant:
+ * 0 → base higher than capacity (appetite runs ahead)
+ * 1 → capacity higher than base (room to grow into)
+ * 2 → levels equal
+ */
+export const RP_ALIGNMENT = [
+  "Your appetite for risk runs ahead of what your finances can currently carry. Your profile has been set at the level your base can safely hold, not the level your nerve could tolerate. Build the base, and the room to take more risk will come with it.",
+  "Your finances can carry more risk than your appetite currently allows. There is room to take on slightly more over time, at your own pace, as your comfort catches up with your capacity.",
+  "Your appetite and your capacity agree, so this profile stands on solid ground.",
+];
+
+/**
+ * Time and access note (PDF §8.4). Same for every profile.
+ */
+export const RP_TIME_AND_ACCESS =
+  "Whatever your profile, money you will need within three years should not be exposed to market movement. Keep it somewhere it can be reached without selling at a loss, such as a money market fund, treasury bills or a fixed deposit. How soon you need the money matters more than how much risk you can tolerate.";
+
+/**
+ * Closing CTA copy (PDF §8.6).
+ */
+export const RP_CLOSING = {
+  heading: "THE NEXT STEP",
+  body: "This profile tells you how much risk you can take. A plan helps you decide what to do with it. The Money Simplified Course helps you turn a profile like yours into an allocation, and a system you can run yourself, built for Nigerian money by someone who manages it daily. If the profile you got was lower than the one you expected, your capacity is probably where your gap lies.",
+};
 
 export const MP_TYPES = [
   {

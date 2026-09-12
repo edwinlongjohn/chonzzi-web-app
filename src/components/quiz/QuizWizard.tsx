@@ -124,7 +124,7 @@ export function QuizWizard({
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
-            <h3 className="mt-4 font-display text-[1.25rem] font-semibold leading-snug text-plum sm:text-[1.5rem]">
+            <h3 className="mt-4 font-display text-[1.25rem] font-semibold leading-snug text-black sm:text-[1.5rem]">
               {q.text}
             </h3>
 
