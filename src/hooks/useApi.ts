@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
 import { setError, clearError, setSuccessMessage } from '../store/slices/uiSlice';
-import type { ApiResponse } from '@/types';
 
 interface UseApiReturn {
   handleError: (error: any, customMessage?: string) => string;

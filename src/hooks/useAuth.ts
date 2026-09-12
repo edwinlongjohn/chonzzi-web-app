@@ -1,5 +1,3 @@
-import { useDispatch} from 'react-redux';
-
 import {
   useLoginMutation,
   useLogoutMutation,
@@ -35,7 +33,6 @@ interface UseAuthReturn {
 }
 
 export const useAuth = (): UseAuthReturn => {
-  const dispatch = useDispatch();
   
 
   const [loginMutation, { isLoading: isLoggingIn }] = useLoginMutation();
