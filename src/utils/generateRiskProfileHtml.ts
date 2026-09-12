@@ -23,7 +23,7 @@ type RiskResult = {
 
 export function generateRiskProfileSummaryHtml(
   result: RiskResult,
-  name: string
+  _name: string
 ): string {
   let html = "";
 
