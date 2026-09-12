@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useSubscribeMutation } from "@/store/api/subscriptionApi";
 import { useJoinWaitlistMutation } from "@/store/api/waitlistApi";
+import { useSendAssessmentResultsEmailMutation } from "@/store/api/emailApi";
 
 // Add reCAPTCHA script to your index.html or head
 // <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -26,7 +27,14 @@ interface EmailCaptureProps {
   className?: string;
   source?: string;
   showRecaptcha?: boolean;
-  type?: "newsletter" | "waitlist";
+  type?: "newsletter" | "waitlist" | "assessment";
+  // Assessment-specific props
+  assessmentData?: {
+    assessmentName: 'Money Personality' | 'Financial Health Check' | 'Risk Profile';
+    assessmentDescription?: string;
+    resultsSummary?: React.ReactNode | string;
+  };
+  userName?: string;
 }
 
 export function EmailCapture({
@@ -39,6 +47,8 @@ export function EmailCapture({
   source = "website",
   showRecaptcha = true,
   type = "newsletter",
+  assessmentData,
+  userName,
 }: EmailCaptureProps) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -49,6 +59,7 @@ export function EmailCapture({
 
   const [subscribe] = useSubscribeMutation();
   const [joinWaitlist] = useJoinWaitlistMutation();
+  const [sendAssessmentEmail] = useSendAssessmentResultsEmailMutation();
 
   // Get reCAPTCHA site key from environment
   const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || "";
@@ -96,6 +107,29 @@ export function EmailCapture({
           name: nameField ? name.trim() : email.trim().split('@')[0],
           source,
         }).unwrap();
+      } else if (type === "assessment") {
+        // Send assessment results email
+        if (!assessmentData) {
+          throw new Error("Assessment data is required for assessment type");
+        }
+        let summaryString = assessmentData.resultsSummary;
+        if (typeof summaryString !== "string" && summaryString !== undefined) {
+          // If it's a React element, try to convert to string
+          // This is a fallback - ideally you should pass the HTML string
+          console.warn(
+            "resultsSummary is a ReactNode, not a string. " +
+              "Please pass the HTML string version for email sending."
+          );
+          summaryString = String(summaryString);
+        }
+        
+        await sendAssessmentEmail({
+          recipientEmail: email.trim(),
+          userName: userName || name.trim() || "User",
+          assessmentName: assessmentData.assessmentName,
+          assessmentDescription: assessmentData.assessmentDescription,
+          resultsSummary: summaryString as string,
+        }).unwrap();
       } else {
         await subscribe({
           email: email.trim(),
@@ -114,7 +148,17 @@ export function EmailCapture({
       setName("");
     } catch (error: any) {
       console.error("Submission error:", error);
-      
+      if(error && error.status === 422) {
+        const validationErrors = (error.data as any)?.errors;
+        const validationMessage = (error.data as any)?.message;
+        if (validationErrors) {
+          setMsg(validationMessage || "Validation error occurred.");
+          setMsg(validationErrors || "Validation error occurred.");
+          toast.error(`${validationMessage}`, {duration: 3000});
+          toast.error(`${validationErrors}`, {duration: 3000});
+        }
+        return;
+      }
       const errorMessage = error?.data?.message || "Failed to submit. Please try again.";
       setMsg(errorMessage);
       toast.error(errorMessage);

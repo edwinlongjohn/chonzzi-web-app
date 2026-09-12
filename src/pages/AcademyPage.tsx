@@ -26,9 +26,9 @@ function Trust({ items }: { items: string[] }) {
 }
 
 const guides = [
-  { title: "A Teen's Guide to Smart Money Moves", body: "The habits that compound into a financially well adult life, for teens and the parents raising them.", cta: "Read free →" },
-  { title: "Smart Money Moves in Your 20s", body: "First salary, first structures. The decade where the maths is most on your side.", cta: "Read free →" },
-  { title: "Before You Say I Do", body: "The money conversations every couple should have before the wedding. New, July 2026.", cta: "Read free →" },
+  { title: "A Teen's Guide to Smart Money Moves", body: "The habits that compound into a financially well adult life, for teens and the parents raising them.", cta: "Read free →", href:"https://moneysimplified.chonzzi.com/shop"},
+  { title: "Smart Money Moves in Your 20s", body: "First salary, first structures. The decade where the maths is most on your side.", cta: "Read free →", href:"https://moneysimplified.chonzzi.com/shop" },
+  { title: "Before You Say I Do", body: "The money conversations every couple should have before the wedding. New, July 2026.", cta: "Read free →", href:"https://moneysimplified.chonzzi.com/shop" },
   { title: "The Nigerian Tax Act Guide", body: "What the new tax law means for your payslip and your side income. Specialised content.", cta: "Get it, ₦2,000 →", href: "https://moneysimplified.chonzzi.com/shop" },
 ];
 

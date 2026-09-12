@@ -107,6 +107,7 @@ export const api = createApi({
     "PublicBlogs",
     "PublicBlog",
     "PublicCategoryStats",
+    'Assessments'
   ],
   endpoints: () => ({}),
 });

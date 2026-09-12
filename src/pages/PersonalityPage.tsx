@@ -1,3 +1,4 @@
+// pages/assessments/PersonalityPage.tsx
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { Container } from "@/components/site/Container";
@@ -16,6 +17,7 @@ import {
   evaluate,
   type Result,
 } from "@/lib/moneyPersonality";
+import { generatePersonalitySummaryHtml } from "@/utils/generatePersonalityHtml";
 
 export default function PersonalityPage() {
   const [name, setName] = useState("");
@@ -80,7 +82,10 @@ export default function PersonalityPage() {
           />
 
           {result && (
-            <div ref={resRef} className="mt-8 overflow-hidden rounded-[22px] border border-plum/15 bg-white/80 p-8 shadow-[0_28px_60px_-30px_rgba(24,0,38,0.35)] backdrop-blur-xl">
+            <div
+              ref={resRef}
+              className="mt-8 overflow-hidden rounded-[22px] border border-plum/15 bg-white/80 p-8 shadow-[0_28px_60px_-30px_rgba(24,0,38,0.35)] backdrop-blur-xl"
+            >
               <Eyebrow tone="lilac">{COPY.greeting(name.trim())}</Eyebrow>
               <h2 className="mt-2.5">{result.title}</h2>
               <p className="my-3">{result.opening}</p>
@@ -105,7 +110,10 @@ export default function PersonalityPage() {
               {result.patterns.length > 0 && (
                 <div className="mt-6 grid gap-4">
                   {result.patterns.map((p) => (
-                    <div key={p} className="rounded-[14px] border border-line bg-[color:var(--tint)] p-5">
+                    <div
+                      key={p}
+                      className="rounded-[14px] border border-line bg-[color:var(--tint)] p-5"
+                    >
                       <h3>The {p}</h3>
                       <p className="mt-2 text-[0.92rem]">{SHORT[p].means}</p>
                       <p className="mt-2 text-[0.92rem]">
@@ -125,7 +133,10 @@ export default function PersonalityPage() {
                 <div className="mt-6 grid gap-4">
                   <p className="text-[0.9rem] text-muted-foreground">{COPY.fourIntro}</p>
                   {NAMES.map((p) => (
-                    <div key={p} className="rounded-[14px] border border-line bg-[color:var(--tint)] p-5">
+                    <div
+                      key={p}
+                      className="rounded-[14px] border border-line bg-[color:var(--tint)] p-5"
+                    >
                       <h3>The {p}</h3>
                       <p className="mt-2 text-[0.92rem]">{SHORT[p].means}</p>
                       <p className="mt-2 text-[0.92rem]">
@@ -156,6 +167,14 @@ export default function PersonalityPage() {
                 description={COPY.formBody}
                 buttonLabel="Send my full reading"
                 buttonVariant="primary"
+                userName={name.trim() || undefined}
+                assessmentData={{
+                  assessmentName: "Money Personality",
+                  assessmentDescription:
+                    "A 16-question assessment that reveals your Money Personality type and how you relate to money.",
+                  resultsSummary: generatePersonalitySummaryHtml(result, name),
+
+                }}
               />
 
               <p className="mt-3 text-[0.8rem] text-muted-foreground">{COPY.privacy}</p>

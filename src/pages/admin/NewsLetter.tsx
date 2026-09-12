@@ -9,12 +9,11 @@ import {
   btnClass,
 } from "@/components/admin/ui";
 import { downloadCsv, formatDate, toCsv } from "@/lib/admin/csv";
-import { Download, Loader2, Mail, MailX, Search, Trash2, Users } from "lucide-react";
+import { Download, Loader2, Search, Trash2, Users } from "lucide-react";
 import {
   useGetSubscribersQuery,
   useDeleteSubscriberMutation,
   useGetSubscriberStatsQuery,
-  useUpdateSubscriberStatusMutation,
 } from "@/store/api/subscriptionApi";
 import type { SubscriberStatus } from "@/types";
 
@@ -38,7 +37,7 @@ export function NewsletterPage() {
 
 
   // Update subscriber mutation
-  const [updateSubscriberStatus, { isLoading: isUpdating }] = useUpdateSubscriberStatusMutation();
+  // const [updateSubscriberStatus, { isLoading: isUpdating }] = useUpdateSubscriberStatusMutation();
 
   // Delete subscriber mutation
   const [deleteSubscriber, { isLoading: isDeleting }] = useDeleteSubscriberMutation();
@@ -49,20 +48,20 @@ export function NewsletterPage() {
   const stats = statsData?.data.stats;
 
   // Handle status update (Unsubscribe/Resubscribe)
-  const handleStatusUpdate = async (id: string, currentStatus: SubscriberStatus) => {
-    try {
-      const nextStatus = currentStatus === "subscribed" ? "unsubscribed" : "subscribed";
-      await updateSubscriberStatus({
-        id,
-        data: {
-          status: nextStatus,
-        },
-      }).unwrap();
-      toast.success(`Subscriber ${nextStatus === "subscribed" ? "resubscribed" : "unsubscribed"} successfully`);
-    } catch (error) {
-      toast.error("Failed to update subscriber status");
-    }
-  };
+  // const handleStatusUpdate = async (id: string, currentStatus: SubscriberStatus) => {
+  //   try {
+  //     const nextStatus = currentStatus === "subscribed" ? "unsubscribed" : "subscribed";
+  //     await updateSubscriberStatus({
+  //       id,
+  //       data: {
+  //         status: nextStatus,
+  //       },
+  //     }).unwrap();
+  //     toast.success(`Subscriber ${nextStatus === "subscribed" ? "resubscribed" : "unsubscribed"} successfully`);
+  //   } catch (error) {
+  //     toast.error("Failed to update subscriber status");
+  //   }
+  // };
 
   // Handle delete
   const handleDelete = async (id: string, email: string) => {
@@ -81,13 +80,12 @@ export function NewsletterPage() {
       name: item.name || "",
       email: item.email,
       status: item.status,
-      source: 'website',
       created_at: item.created_at,
     }));
 
     downloadCsv(
       `subscribers-${new Date().toISOString().slice(0, 10)}.csv`,
-      toCsv(csvData, ["name", "email", "status", "source", "created_at"]),
+      toCsv(csvData, ["name", "email", "status", "created_at"]),
     );
   };
 
@@ -98,10 +96,10 @@ export function NewsletterPage() {
   };
 
   // Handle status filter change
-  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setStatus(e.target.value as "all" | SubscriberStatus);
-    setPage(1);
-  };
+  // const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setStatus(e.target.value as "all" | SubscriberStatus);
+  //   setPage(1);
+  // };
 
   if (isLoading) {
     return (
@@ -121,15 +119,15 @@ export function NewsletterPage() {
 
       {/* Stats Cards */}
       {stats && (
-        <div className="mb-5 grid gap-4 sm:grid-cols-3">
+        <div className="mb-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
           <StatCard label="Total" value={stats.total} icon={<Users size={17} />} />
-          <StatCard label="subscribed" value={stats.subscribed} icon={<Mail size={17} />} tone="emerald" />
-          <StatCard
+          {/* <StatCard label="subscribed" value={stats.subscribed} icon={<Mail size={17} />} tone="emerald" /> */}
+          {/* <StatCard
             label="Unsubscribed"
             value={stats.unsubscribed}
             icon={<MailX size={17} />}
             tone="gold"
-          />
+          /> */}
         </div>
       )}
 
@@ -147,7 +145,7 @@ export function NewsletterPage() {
             className={`${inputClass} w-full pl-10`}
           />
         </div>
-        <select
+        {/* <select
           value={status}
           onChange={handleStatusChange}
           className={inputClass}
@@ -155,7 +153,7 @@ export function NewsletterPage() {
           <option value="all">All statuses</option>
           <option value="subscribed">subscribed</option>
           <option value="unsubscribed">Unsubscribed</option>
-        </select>
+        </select> */}
         <button onClick={exportCsv} className={btnClass}>
           <Download size={14} /> Export CSV
         </button>
@@ -176,7 +174,7 @@ export function NewsletterPage() {
             <table className="w-full min-w-[680px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-line bg-[color:var(--tint)]">
-                  {["Name", "Email", "Source", "Status", "Joined", ""].map((h) => (
+                  {["Name", "Email", "Status", "Joined", ""].map((h) => (
                     <th
                       key={h}
                       className="px-5 py-3 font-mono text-[0.66rem] font-bold uppercase tracking-[0.1em] text-muted-foreground"
@@ -193,7 +191,6 @@ export function NewsletterPage() {
                       {s.name ?? "—"}
                     </td>
                     <td className="px-5 py-3.5 text-[0.85rem] text-muted-foreground">{s.email}</td>
-                    <td className="px-5 py-3.5 text-[0.85rem] text-muted-foreground">website</td>
                     <td className="px-5 py-3.5">
                       <StatusPill status={s.status} />
                     </td>
@@ -202,13 +199,13 @@ export function NewsletterPage() {
                     </td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center justify-end gap-1.5">
-                        <button
+                        {/* <button
                           onClick={() => handleStatusUpdate(s.id, s.status)}
                           disabled={isUpdating}
                           className="rounded-lg px-2.5 py-1.5 font-mono text-[0.66rem] font-bold uppercase tracking-[0.06em] text-plum transition hover:bg-plum/8 disabled:opacity-50"
                         >
                           {s.status === "subscribed" ? "Unsubscribe" : "Resubscribe"}
-                        </button>
+                        </button> */}
                         <button
                           onClick={() => handleDelete(s.id, s.email)}
                           disabled={isDeleting}

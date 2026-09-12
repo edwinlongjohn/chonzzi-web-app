@@ -334,3 +334,42 @@ export interface Collection {
   cover: string;
   coverAlt: string;
 }
+
+export type QuizType = "Money Personality" | "Financial Health Check" | "Risk Profile";
+
+export interface AssessmentAnswer {
+  question: string;
+  answer: string;
+}
+
+export interface AssessmentResult {
+  id: string;
+  user_name: string;
+  user_email: string;
+  quiz_type: QuizType;
+  answers: AssessmentAnswer[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface SubmitAssessmentData {
+  user_name: string;
+  user_email: string;
+  quiz_type: QuizType;
+  answers: AssessmentAnswer[];
+}
+
+export interface GetAssessmentsParams {
+  quiz_type?: string;
+  search?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface AssessmentsResponse {
+  data: AssessmentResult[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}

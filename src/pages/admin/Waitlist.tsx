@@ -101,14 +101,13 @@ export function WaitlistPage() {
       name: item.name,
       email: item.email,
       status: item.status,
-      source: item.source || "Website",
       note: item.admin_notes || "",
       created_at: item.created_at,
     }));
 
     downloadCsv(
       `waitlist-${new Date().toISOString().slice(0, 10)}.csv`,
-      toCsv(csvData as any, ["name", "email", "status", "source", "note", "created_at"]),
+      toCsv(csvData as any, ["name", "email", "status", "note", "created_at"]),
     );
   };
 
@@ -179,7 +178,7 @@ export function WaitlistPage() {
           }}
           className={inputClass}
         >
-          <option value="all">All statuses</option>
+          <option value="all">All status</option>
           {STATUSES.map((s) => (
             <option key={s} value={s}>
               {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -201,7 +200,7 @@ export function WaitlistPage() {
             <table className="w-full min-w-[720px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-line bg-[color:var(--tint)]">
-                  {["Name", "Email", "Source", "Status", "Joined", ""].map((h) => (
+                  {["Name", "Email",  "Status", "Joined", ""].map((h) => (
                     <th
                       key={h}
                       className="px-5 py-3 font-mono text-[0.66rem] font-bold uppercase tracking-[0.1em] text-muted-foreground"
@@ -222,9 +221,7 @@ export function WaitlistPage() {
                       {r.name}
                     </td>
                     <td className="px-5 py-3.5 text-[0.85rem] text-muted-foreground">{r.email}</td>
-                    <td className="px-5 py-3.5 text-[0.85rem] text-muted-foreground">
-                      {r.source || "Website"}
-                    </td>
+                    
                     <td className="px-5 py-3.5">
                       <StatusPill status={r.status} />
                     </td>
@@ -342,7 +339,6 @@ function DetailDrawer({
         <dl className="mt-5 space-y-3 text-[0.88rem]">
           {[
             ["Email", row.email],
-            ["Source", row.source || "Website"],
             ["Joined", formatDate(row.created_at)],
           ].map(([k, v]) => (
             <div key={k} className="flex justify-between gap-4 border-b border-line pb-2.5">

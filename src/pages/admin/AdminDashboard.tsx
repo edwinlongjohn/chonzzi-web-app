@@ -52,7 +52,7 @@ export default function AdminDashboard() {
 
   // Calculate subscriber stats
   const active = subscribers.filter((s: Subscriber) => s.status === "subscribed").length;
-  const unsubscribed = subscribers.filter((s: Subscriber) => s.status === "unsubscribed").length;
+  // const unsubscribed = subscribers.filter((s: Subscriber) => s.status === "unsubscribed").length;
 
   // Get blog stats (for additional info if needed)
   //const stats = statsData?.data;
@@ -83,7 +83,7 @@ export default function AdminDashboard() {
         description="A quick read on who is waiting, who is reading, and what needs your attention."
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <StatCard
           label="Waitlist total"
           value={totalWaitlist}
@@ -104,12 +104,12 @@ export default function AdminDashboard() {
           icon={<Mail size={17} />}
           tone="gold"
         />
-        <StatCard
+        {/* <StatCard
           label="Unsubscribed"
           value={unsubscribed}
           hint="Left the letter"
           icon={<Mail size={17} />}
-        />
+        /> */}
       </div>
 
       <div className="mt-6 grid gap-5 lg:grid-cols-2">
