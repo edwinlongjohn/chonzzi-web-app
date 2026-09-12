@@ -80,7 +80,7 @@ export const subscriptionApi = api.injectEndpoints({
       string
     >({
       query: (id) => `/subscribers/${id}`,
-      providesTags: (result, error, id) => [{ type: "Subscriber", id }],
+      providesTags: (_result, _error, id) => [{ type: "Subscriber", id }],
     }),
 
     // Get subscriber statistics
@@ -108,7 +108,7 @@ export const subscriptionApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [
+      invalidatesTags: (_result, _error, { id }) => [
         { type: "Subscriber", id },
         { type: "Subscriber", id: "LIST" },
         "SubscriberStats",
@@ -125,7 +125,7 @@ export const subscriptionApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [
+      invalidatesTags: (_result, _error, { id }) => [
         { type: "Subscriber", id },
         { type: "Subscriber", id: "LIST" },
         "SubscriberStats",
@@ -138,7 +138,7 @@ export const subscriptionApi = api.injectEndpoints({
         url: `/subscribers/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (result, error, id) => [
+      invalidatesTags: (_result, _error, id) => [
         { type: "Subscriber", id },
         { type: "Subscriber", id: "LIST" },
         "SubscriberStats",

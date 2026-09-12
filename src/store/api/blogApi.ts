@@ -40,7 +40,7 @@ export const blogApi = api.injectEndpoints({
     // Get single blog (Admin)
     getBlogById: builder.query<ApiResponse<{ blog: BlogPost }>, string>({
       query: (id) => `/blogs/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Blog', id }],
+      providesTags: (_result, _error, id) => [{ type: 'Blog', id }],
     }),
 
     // Create a new blog (Admin)
@@ -63,7 +63,7 @@ export const blogApi = api.injectEndpoints({
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [
+      invalidatesTags: (_result, _error, { id }) => [
         { type: 'Blog', id },
         { type: 'Blog', id: 'LIST' },
         'BlogStats',
@@ -77,7 +77,7 @@ export const blogApi = api.injectEndpoints({
         url: `/blogs/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [
+      invalidatesTags: (_result, _error, id) => [
         { type: 'Blog', id },
         { type: 'Blog', id: 'LIST' },
         'BlogStats',
@@ -127,7 +127,7 @@ export const blogApi = api.injectEndpoints({
     // Get single published blog by ID (Public)
     getPublicBlogById: builder.query<ApiResponse<{ blog: BlogPost }>, string>({
       query: (id) => `/blogs/public/${id}`,
-      providesTags: (result, error, id) => [{ type: 'PublicBlog', id }],
+      providesTags: (_result, _error, id) => [{ type: 'PublicBlog', id }],
     }),
 
     // Get category statistics (Public)

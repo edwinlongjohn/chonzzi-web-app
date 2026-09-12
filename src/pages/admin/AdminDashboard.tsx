@@ -30,7 +30,7 @@ export default function AdminDashboard() {
 
   // Fetch blog stats (for subscriber info)
   const { 
-    data: statsData, 
+    // data: statsData, 
     isLoading: statsLoading,
     error: statsError 
   } = useGetBlogStatsQuery();

@@ -21,7 +21,7 @@ const PAGE_SIZE = 10;
 
 export function NewsletterPage() {
   const [search, setSearch] = useState("");
-  const [status, setStatus] = useState<"all" | SubscriberStatus>("all");
+  const [status] = useState<"all" | SubscriberStatus>("all");
   const [page, setPage] = useState(1);
 
   // Fetch subscribers with filters

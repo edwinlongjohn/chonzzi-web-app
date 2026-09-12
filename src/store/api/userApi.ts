@@ -31,7 +31,7 @@ export const userApi = api.injectEndpoints({
     // Get user by ID
     getUserById: builder.query<ApiResponse<{ user: UserWithProfile }>, string>({
       query: (id) => `/users/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Users', id }],
+      providesTags: (_result, _error, id) => [{ type: 'Users', id }],
     }),
 
     // Update user (admin only)
@@ -44,7 +44,7 @@ export const userApi = api.injectEndpoints({
         method: 'PUT',
         body: userData,
       }),
-      invalidatesTags: (result, error, { id }) => [
+      invalidatesTags: (_result, _error, { id }) => [
         { type: 'Users', id },
         'Users',
       ],
@@ -56,7 +56,7 @@ export const userApi = api.injectEndpoints({
         url: `/users/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [
+      invalidatesTags: (_result, _error, id) => [
         { type: 'Users', id },
         'Users',
       ],

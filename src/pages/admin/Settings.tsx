@@ -53,7 +53,7 @@ const mockApi = {
 };
 
 export function SettingsPage() {
-  const [data, setData] = useState<AdminProfile | null>(null);
+  const [_data, setData] = useState<AdminProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [form, setForm] = useState<AdminProfile | null>(null);
   const [isSaving, setIsSaving] = useState(false);

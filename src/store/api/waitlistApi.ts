@@ -53,7 +53,7 @@ export const waitlistApi = api.injectEndpoints({
     // Admin: Get single waitlist entry
     getWaitlistEntry: builder.query<ApiResponse<{ entry: WaitlistEntry }>, string>({
       query: (id) => `/waitlist/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Waitlist', id }],
+      providesTags: (_result, _error, id) => [{ type: 'Waitlist', id }],
     }),
 
     // Admin: Update status with notes
@@ -66,7 +66,7 @@ export const waitlistApi = api.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [
+      invalidatesTags: (_result, _error, { id }) => [
         { type: 'Waitlist', id },
         { type: 'Waitlist', id: 'LIST' },
         'WaitlistStats',
@@ -83,7 +83,7 @@ export const waitlistApi = api.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [
+      invalidatesTags: (_result, _error, { id }) => [
         { type: 'Waitlist', id },
         { type: 'Waitlist', id: 'LIST' },
       ],
@@ -95,7 +95,7 @@ export const waitlistApi = api.injectEndpoints({
         url: `/waitlist/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [
+      invalidatesTags: (_result, _error, id) => [
         { type: 'Waitlist', id },
         { type: 'Waitlist', id: 'LIST' },
         'WaitlistStats',
