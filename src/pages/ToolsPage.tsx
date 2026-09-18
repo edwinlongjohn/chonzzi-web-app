@@ -42,7 +42,7 @@ export default function AssessmentsHub() {
               tag="Money Personality Assessment"
               title="Money Personality"
               question="What is my money personality?"
-              description=" Where is your money strong, and what areas are exposed? Before any investments, know how much risk you can truly take."
+              description=" Are you a saver, an avoider, a worrier or a spender?"
               meta={["~5 min", "16 questions", "Result by email"]}
               ctaLabel="My personality is…"
               to="/assessments/personality"
@@ -52,7 +52,7 @@ export default function AssessmentsHub() {
               tag="Financial Health Check"
               title="Financial Health Check"
               question="Where do I stand right now?"
-              description="18 honest questions across 6 areas of your financial life, and a score that shows you exactly where the gaps are."
+              description="Where is your money strong, and what areas are exposed?"
               meta={["~5 min", "18 questions", "Result by email"]}
               ctaLabel="Are my finances in order?"
               to="/assessments/health-check"
@@ -62,7 +62,7 @@ export default function AssessmentsHub() {
               tag="Risk Profile Assessment"
               title="Risk Profile"
               question="How much risk am I willing to take?"
-              description="Before your money takes any risk, know how much risk is actually yours to take, with a suggested investment split shaped by your age and temperament."
+              description="Before any investments, know how much risk you can truly take."
               meta={["~3 min", "12 questions", "Result by email"]}
               ctaLabel="What's my risk profile?"
               to="/assessments/risk-profile"
