@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 
 const links = [
-  { to: "/academy", label: "The Academy" },
+  { to: "/academy", label: "Money Simplified" },
   { to: "/coaching", label: "Coaching with Temi" },
   { to: "/assessments", label: "Free Assessments" },
   { to: "/stories", label: "Stories & Letters" },

@@ -164,23 +164,32 @@ export default function HealthCheckPage() {
           <h3 className="mt-5">{result.level[1]}</h3><p className="my-3">{result.level[2]}</p>
           {result.flags.length > 0 && <div className="my-6 rounded-xl border border-red-200 bg-red-50 p-5"><h3>THE THING THAT CANNOT WAIT</h3><p className="mt-2 font-semibold">{result.flags[0].label}</p><p className="text-sm text-muted-foreground">{result.flags[0].pillar}</p><p className="mt-2">One first step: {result.flags[0].step}</p>{result.flags.length > 1 && <p className="mt-3 text-sm">Also flagged: {result.flags.slice(1, 3).map((flag) => flag.label).join("; ")}</p>}</div>}
           <div className="overflow-x-auto"><table className="mt-4 w-full border-collapse text-[0.9rem]"><thead><tr><th className="border-b border-line py-2.5 text-left">Area</th><th className="border-b border-line py-2.5 text-left">Score</th><th className="border-b border-line py-2.5 text-left">Status</th><th className="border-b border-line py-2.5 text-left">Progress</th></tr></thead><tbody>{result.pillars.map((pillar) => <tr key={pillar.name}><td className="border-b border-line py-2.5">{pillar.name}</td><td className="border-b border-line py-2.5">{pillar.score}/{pillar.max}</td><td className="border-b border-line py-2.5">{pillar.status}</td><td className="border-b border-line py-2.5">{"█".repeat(Math.round(pillar.pct * 10))}{"░".repeat(10 - Math.round(pillar.pct * 10))}</td></tr>)}</tbody></table></div>
-          {result.allClear ? <div className="mt-8"><h3>YOU ARE DOING VERY WELL PLANNING YOUR FINANCES</h3><p className="mt-2">All six areas are holding at once, which is uncommon and reflects decisions you have made deliberately. From here the work is protection and time: keeping the systems you have built running, and reviewing them periodically. Incomes, dependants and goals change, and a plan set three years ago may no longer match the life you are living.</p>{result.allClearStep ? <p className="mt-4"><strong>One thing still worth doing:</strong> {result.allClearStep.question.step}</p> : result.sharpening.pct < 1 && <p className="mt-4">Your sharpening edge: {result.sharpening.name} — the area furthest from full marks. One deliberate look this quarter improves this.</p>}</div> : <div className="mt-8"><h3>{result.priorities.length === 1 ? "Your priority gap" : "Your priority gaps"}</h3>{result.priorities.map((priority) => { const variant = priority.pillar.status === "Gap" ? "Gap" : "Building"; const copy = PILLAR_COPY[priority.pillar.name][variant]; return <div key={priority.pillar.name} className="mt-5 border-l-2 border-emerald pl-4"><p className="font-mono text-xs font-bold uppercase tracking-widest text-emerald">Priority {priority.number}</p><h4 className="mt-1">{copy.heading}</h4><p className="mt-2">{copy.copy}</p><p className="mt-2"><strong>One first step:</strong> {priority.step}</p></div>; })}</div>}
-          {result.bestPillar.pillar.pct >= 0.75 && <div className="mt-8 border-t border-line pt-6"><h3>ONE THING YOU ARE DOING WELL</h3><h4 className="mt-2">{PILLAR_COPY[result.bestPillar.pillar.name].Strength.heading}</h4><p className="mt-2">{PILLAR_COPY[result.bestPillar.pillar.name].Strength.copy}</p></div>}
+          {/* {result.allClear ? <div className="mt-8">
+            <h3>YOU ARE DOING VERY WELL PLANNING YOUR FINANCES</h3>
+          <p className="mt-2">All six areas are holding at once, which is uncommon and reflects decisions you have made deliberately. From here the work is protection and time: keeping the systems you have built running, and reviewing them periodically. Incomes, dependants and goals change, and a plan set three years ago may no longer match the life you are living.</p>
+          {result.allClearStep ? 
+          <p className="mt-4"><strong>One thing still worth doing:</strong> {result.allClearStep.question.step}</p> : result.sharpening.pct < 1 && <p className="mt-4">Your sharpening edge: {result.sharpening.name} — the area furthest from full marks. One deliberate look this quarter improves this.</p>}</div>
+           : <div className="mt-8"><h3>{result.priorities.length === 1 ? "Your priority gap" : "Your priority gaps"}</h3>{result.priorities.map((priority) => { const variant = priority.pillar.status === "Gap" ? "Gap" : "Building"; const copy = PILLAR_COPY[priority.pillar.name][variant]; return <div key={priority.pillar.name} className="mt-5 border-l-2 border-emerald pl-4"><p className="font-mono text-xs font-bold uppercase tracking-widest text-emerald">
+            Priority {priority.number}</p><h4 className="mt-1">{copy.heading}</h4><p className="mt-2">{copy.copy}</p>
+            <p className="mt-2"><strong>One first step:</strong> {priority.step}</p></div>; })}
+            </div>
+            } */}
+          {/* {result.bestPillar.pillar.pct >= 0.75 && <div className="mt-8 border-t border-line pt-6"><h3>ONE THING YOU ARE DOING WELL</h3><h4 className="mt-2">{PILLAR_COPY[result.bestPillar.pillar.name].Strength.heading}</h4><p className="mt-2">{PILLAR_COPY[result.bestPillar.pillar.name].Strength.copy}</p></div>} */}
 
 
           <ResultGate
-            title="Your full breakdown is ready."
-            description="Your six-area scores, the thing that cannot wait, and your three priorities with a first step for each, sent to your inbox so you can keep it."
+            title="Get your full result sent to your inbox"
+            description=""
             buttonLabel="Send my full report"
             buttonVariant="green"
             userName={name.trim() || undefined}
             assessmentData={{
               assessmentName: "Financial Health Check",
-              assessmentDescription: "A comprehensive 18-question financial self-diagnostic across six areas of your financial life",
+              assessmentDescription: "This is the financial equivalent of stepping on the scale. A low score is not a failure. It's a starting point with the gaps already named for you.",
               resultsSummary: generateResultsSummaryHtml(result, name)
             }}
           />
-          <hr className="my-6 border-line" /><h3>THE NEXT STEP</h3><p className="mt-2">A plan that fits your life, not a template with your name on it. This check can show you where the gaps are. Closing them takes a plan built around your income, your obligations and the season of life you are actually in. That is what Money Simplified does, module by module, using your own numbers rather than examples. If something on this page was uncomfortable to read, that is usually the area worth starting with.</p><div className="mt-3"><BrandAnchor variant="primary" href="https://moneysimplified.chonzzi.com/shop">SEE THE MONEY SIMPLIFIED COURSE →</BrandAnchor></div>
+          <hr className="my-6 border-line" /><h3>THE NEXT STEP</h3><p className="mt-2">Our Diagnostic tests tell you how you respond to money.</p> <p className="mt-2">Knowledge and a plan helps you build wealth. Join the Money simplified course today for the knowledge and tools to build and manage wealth. The link is below.</p><div className="mt-3"><BrandAnchor variant="primary" href="https://moneysimplified.chonzzi.com/shop">SEE THE MONEY SIMPLIFIED COURSE →</BrandAnchor></div>
           <p className="mt-4 text-[0.85rem] text-muted-foreground">Next: <Link to="/assessments/personality" className="text-emerald">discover your Money Personality</Link> or <Link to="/assessments/risk-profile" className="text-emerald">find your Risk Profile</Link>.</p>
         </div>}
       </Container></Section>

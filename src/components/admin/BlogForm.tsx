@@ -13,7 +13,7 @@ import type { BlogCategory, BlogStatus } from "@/types";
 //   getCurrentNigeriaTime,
 // } from "@/utils/date";
 
-export const STATUSES: BlogStatus[] = ["draft", "scheduled", "published"];
+export const STATUSES: BlogStatus[] = ["draft", "published"];
 export const CATEGORIES = ["letters", "character_stories", "women_stories", "others"];
 
 export interface BlogDraft {

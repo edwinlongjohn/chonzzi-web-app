@@ -10,9 +10,9 @@ import { ResultGate } from "@/components/quiz/ResultGate";
 import {
   QUESTIONS,
   SCALE_LABELS,
-  NAMES,
-  SHORT,
-  BLENDS,
+  //NAMES,
+  //SHORT,
+  //BLENDS,
   COPY,
   evaluate,
   type Result,
@@ -91,7 +91,7 @@ export default function PersonalityPage() {
               <p className="my-3">{result.opening}</p>
 
               {/* Scores and bands */}
-              <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
+              {/* <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
                 {NAMES.map((n) => (
                   <div
                     key={n}
@@ -104,10 +104,10 @@ export default function PersonalityPage() {
                   </div>
                 ))}
               </div>
-              <p className="mt-2.5 text-[0.8rem] text-muted-foreground">{COPY.legend}</p>
+              <p className="mt-2.5 text-[0.8rem] text-muted-foreground">{COPY.legend}</p> */}
 
               {/* Pattern detail */}
-              {result.patterns.length > 0 && (
+              {/* {result.patterns.length > 0 && (
                 <div className="mt-6 grid gap-4">
                   {result.patterns.map((p) => (
                     <div
@@ -160,18 +160,18 @@ export default function PersonalityPage() {
               )}
 
               <p className="mt-5">{COPY.meaning1}</p>
-              <p className="mt-3">{COPY.meaning2}</p>
+              <p className="mt-3">{COPY.meaning2}</p> */}
 
               <ResultGate
                 title={COPY.formHeading}
-                description={COPY.formBody}
+                description={''}
                 buttonLabel="Send my full reading"
                 buttonVariant="primary"
                 userName={name.trim() || undefined}
                 assessmentData={{
                   assessmentName: "Money Personality",
                   assessmentDescription:
-                    "A 16-question assessment that reveals your Money Personality type and how you relate to money.",
+                    "Your personality explains why you handle money the way you do, and where that habit helps you or quietly costs you. There is no wrong type here, only patterns worth knowing about.",
                   resultsSummary: generatePersonalitySummaryHtml(result, name),
 
                 }}

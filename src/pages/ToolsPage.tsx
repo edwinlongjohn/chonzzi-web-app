@@ -36,12 +36,13 @@ export default function AssessmentsHub() {
       <Section>
         <Container>
           <div className="grid gap-6 md:grid-cols-3">
+            {/* Are you a saver, an avoider, a worrier or a spender? */}
             <AssessmentCard
               tone="mp"
               tag="Money Personality Assessment"
               title="Money Personality"
               question="What is my money personality?"
-              description="Are you a saver, an avoider, a warrior, or a spender?"
+              description=" Where is your money strong, and what areas are exposed? Before any investments, know how much risk you can truly take."
               meta={["~5 min", "16 questions", "Result by email"]}
               ctaLabel="My personality is…"
               to="/assessments/personality"

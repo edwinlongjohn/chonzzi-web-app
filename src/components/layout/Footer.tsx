@@ -10,7 +10,8 @@ import {
 import {  FaInstagram,
   FaFacebook,
   FaLinkedin,
-  FaXTwitter,
+  FaTiktok,
+  //FaXTwitter,
   FaYoutube
 } from "react-icons/fa6";
 
@@ -40,11 +41,12 @@ const columns: {
 ];
 
 const socials = [
-  { label: "Instagram", href: "https://instagram.com/", Icon: FaInstagram },
-  { label: "Facebook", href: "https://facebook.com/", Icon: FaFacebook },
-  { label: "LinkedIn", href: "https://linkedin.com/", Icon: FaLinkedin },
-  { label: "YouTube", href: "https://youtube.com/", Icon: FaYoutube },
-  { label: "Twitter / X", href: "https://twitter.com/", Icon: FaXTwitter },
+  { label: "Instagram", href: "https://www.instagram.com/moneysimplified.ng/", Icon: FaInstagram },
+  { label: "TikTok", href: "https://www.tiktok.com/@moneysimplifiedng?_r=1&_t=ZS-964sUFgtiBp", Icon: FaTiktok },
+  { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591244192310", Icon: FaFacebook },
+  { label: "LinkedIn", href: "https://www.linkedin.com/newsletters/life-money-all-in-between-7350735291873165314/", Icon: FaLinkedin },
+  { label: "YouTube", href: "https://www.youtube.com/@moneysimplifiedngtv", Icon: FaYoutube },
+  // { label: "Twitter / X", href: "https://twitter.com/", Icon: FaXTwitter },
 ];
 
 export function Footer() {

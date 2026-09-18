@@ -40,7 +40,7 @@ export function ResultGate({
         />
       </div>
       <p className="mt-2.5 text-[0.85rem] text-muted-foreground">
-        By sending, you join the free Money Simplified weekly letter. Leave any time.
+        By sending, you join the free Money Simplified weekly letter.
       </p>
       {children}
     </div>

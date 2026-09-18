@@ -61,7 +61,7 @@ export default function AcademyPage() {
                   Enrol in the Course, ₦35,000
                 </BrandAnchor>
                 <a
-                  href="#msa-guides"
+                  href="https://moneysimplified.chonzzi.com/shop" target="_blank" 
                   className="inline-flex items-center rounded-lg border-2 border-white/70 px-[30px] py-[15px] font-mono text-[0.94rem] font-bold text-white no-underline transition hover:bg-white/10"
                 >
                   Start free with a Guide

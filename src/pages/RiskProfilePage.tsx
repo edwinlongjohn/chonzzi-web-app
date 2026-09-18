@@ -10,8 +10,8 @@ import {
   RP_Q,
   RP_DIMS,
   RP_LEVELS,
-  RP_ALIGNMENT,
-  RP_TIME_AND_ACCESS,
+  //RP_ALIGNMENT,
+  //RP_TIME_AND_ACCESS,
   RP_CLOSING,
 } from "@/data/assessments";
 import { generateRiskProfileSummaryHtml } from "@/utils/generateRiskProfileHtml";
@@ -160,18 +160,18 @@ export default function RiskProfilePage() {
 
               {/* Block 2 — Profile name + paragraph */}
               <h3 className="mt-4">{result.level.name}</h3>
-              <p className="my-3">{result.level.blurb}</p>
+              {/* <p className="my-3">{result.level.blurb}</p> */}
 
               {/* Block 3 — Alignment note (Step G) */}
-              <p className="rounded-lg border border-gold/30 bg-[color:var(--tint)] p-4 text-[0.9rem]">
+              {/* <p className="rounded-lg border border-gold/30 bg-[color:var(--tint)] p-4 text-[0.9rem]">
                 {RP_ALIGNMENT[result.alignmentVariant]}
-              </p>
+              </p> */}
 
               {/* Block 4 — Four dimensions table */}
-              <p className="mt-7 font-mono text-[0.7rem] font-bold uppercase tracking-[0.12em] text-plum">
+              {/* <p className="mt-7 font-mono text-[0.7rem] font-bold uppercase tracking-[0.12em] text-plum">
                 THE FOUR DIMENSIONS
-              </p>
-              <div className="mt-3 overflow-x-auto">
+              </p> */}
+              {/* <div className="mt-3 overflow-x-auto">
                 <table className="w-full min-w-[520px] border-collapse text-left text-[0.9rem]">
                   <thead>
                     <tr>
@@ -210,22 +210,22 @@ export default function RiskProfilePage() {
                     })}
                   </tbody>
                 </table>
-              </div>
+              </div> */}
 
               {/* Block 5 — Time and access note (no heading) */}
-              <p className="mt-6 text-[0.9rem] leading-relaxed">{RP_TIME_AND_ACCESS}</p>
+              {/* <p className="mt-6 text-[0.9rem] leading-relaxed">{RP_TIME_AND_ACCESS}</p> */}
 
               {/* ResultGate — sends the full reading to email */}
               <ResultGate
-                title="Your full profile is ready."
-                description="Your complete risk breakdown and what it means for your first investments, sent to your inbox so you can keep it."
+                title="Get your full result sent to your inbox"
+                description=""
                 buttonLabel="Send my full profile"
                 buttonVariant="gold"
                 userName={name.trim() || undefined}
                 assessmentData={{
                   assessmentName: "Risk Profile",
                   assessmentDescription:
-                    "A 12-question investment risk diagnostic across four dimensions, producing a Conservative, Balanced or Growth profile.",
+                    "Your risk profile is not about how brave you are. It's about how much loss your life can absorb while you wait for an investment to work. Conservative, Balanced or Growth: each one is a starting point, not a verdict.",
                   resultsSummary: generateRiskProfileSummaryHtml(
                     {
                       headline,

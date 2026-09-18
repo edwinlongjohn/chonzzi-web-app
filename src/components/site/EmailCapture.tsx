@@ -45,7 +45,7 @@ export function EmailCapture({
   placeholder = "Your email",
   className,
   source = "website",
-  showRecaptcha = true,
+  //showRecaptcha = true,
   type = "newsletter",
   assessmentData,
   userName,
@@ -54,7 +54,7 @@ export function EmailCapture({
   const [name, setName] = useState("");
   const [msg, setMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isSuccess, _setIsSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   const [subscribe] = useSubscribeMutation();
@@ -62,7 +62,7 @@ export function EmailCapture({
   const [sendAssessmentEmail] = useSendAssessmentResultsEmailMutation();
 
   // Get reCAPTCHA site key from environment
-  const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || "";
+  //const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || "";
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -88,17 +88,17 @@ export function EmailCapture({
       let recaptchaToken: string | undefined;
 
       // Get reCAPTCHA token if enabled
-      if (showRecaptcha && recaptchaSiteKey) {
-        try {
-          await window.grecaptcha.ready(async () => {
-            recaptchaToken = await window.grecaptcha.execute(recaptchaSiteKey, {
-              action: type === "waitlist" ? "join_waitlist" : "subscribe",
-            });
-          });
-        } catch (recaptchaError) {
-          console.error("reCAPTCHA error:", recaptchaError);
-        }
-      }
+      // if (showRecaptcha && recaptchaSiteKey) {
+      //   try {
+      //     await window.grecaptcha.ready(async () => {
+      //       recaptchaToken = await window.grecaptcha.execute(recaptchaSiteKey, {
+      //         action: type === "waitlist" ? "join_waitlist" : "subscribe",
+      //       });
+      //     });
+      //   } catch (recaptchaError) {
+      //     console.error("reCAPTCHA error:", recaptchaError);
+      //   }
+      // }
 
       // Call the appropriate API based on type
       if (type === "waitlist") {
@@ -116,10 +116,6 @@ export function EmailCapture({
         if (typeof summaryString !== "string" && summaryString !== undefined) {
           // If it's a React element, try to convert to string
           // This is a fallback - ideally you should pass the HTML string
-          console.warn(
-            "resultsSummary is a ReactNode, not a string. " +
-              "Please pass the HTML string version for email sending."
-          );
           summaryString = String(summaryString);
         }
         
@@ -140,7 +136,7 @@ export function EmailCapture({
 
       // Show success message
       setMsg(successMessage);
-      setIsSuccess(true);
+      //setIsSuccess(true);
       toast.success(successMessage);
       
       // Clear form
@@ -204,14 +200,14 @@ export function EmailCapture({
       />
       
       {/* Hidden reCAPTCHA badge */}
-      {showRecaptcha && recaptchaSiteKey && (
+      {/* {showRecaptcha && recaptchaSiteKey && (
         <div 
           className="g-recaptcha" 
           data-sitekey={recaptchaSiteKey} 
           data-size="invisible"
           data-badge="inline"
         />
-      )}
+      )} */}
       
       <BrandButton type="submit" variant={buttonVariant} disabled={isLoading}>
         {isLoading ? "Submitting..." : buttonLabel}
@@ -222,11 +218,11 @@ export function EmailCapture({
       )}
       
       {/* reCAPTCHA notice */}
-      {showRecaptcha && recaptchaSiteKey && (
+      {/* {showRecaptcha && recaptchaSiteKey && (
         <p className="mt-1 w-full text-[0.65rem] text-muted-foreground">
           Protected by reCAPTCHA
         </p>
-      )}
+      )} */}
     </form>
   );
 }

@@ -19,7 +19,7 @@ const statusTone: Record<BlogStatus, string> = {
   published: 'bg-emerald/12 text-emerald',
 };
 
-const STATUSES: BlogStatus[] = ['draft', 'scheduled', 'published'];
+const STATUSES: BlogStatus[] = ['draft', 'published'];
 
 export function BlogPage() {
   const navigate = useNavigate();
@@ -147,7 +147,7 @@ export function BlogPage() {
           onChange={handleStatusChange}
           className={inputClass}
         >
-          <option value="all">All statuses</option>
+          <option value="all">All status</option>
           {STATUSES.map((s) => (
             <option key={s} value={s}>
               {s}
