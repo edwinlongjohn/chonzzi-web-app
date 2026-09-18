@@ -123,7 +123,7 @@ export default function AcademyPage() {
                 ))}
               </ul>
               <div className="mt-5">
-                <BrandAnchor variant="primary" href="https://moneysimplified.chonzzi.com/course">
+                <BrandAnchor variant="primary" href="https://moneysimplified.chonzzi.com/moneycourse">
                   Enrol in the Course
                 </BrandAnchor>
               </div>
