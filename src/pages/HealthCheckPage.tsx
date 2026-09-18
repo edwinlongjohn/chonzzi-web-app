@@ -7,6 +7,7 @@ import { BrandAnchor } from "@/components/site/BrandButton";
 import { QuizWizard, QuizIntroCard, type WizardQuestion } from "@/components/quiz/QuizWizard";
 import { ResultGate } from "@/components/quiz/ResultGate";
 import { FHC_Q, FHC_PILLARS, FHC_LEVELS } from "@/data/assessments";
+import { COPY } from "@/lib/moneyPersonality";
 
 type PillarResult = { name: string; score: number; max: number; pct: number; status: "Strong" | "Building" | "Gap" };
 type CopyVariant = { heading: string; copy: string };
@@ -80,7 +81,7 @@ export default function HealthCheckPage() {
     html += `<div class="flag-block">`;
     html += `<h3>THE THING THAT CANNOT WAIT</h3>`;
     html += `<p><strong>${result.flags[0].label}</strong></p>`;
-    html += `<p style="font-size: 12px; color: #8a7a9a;">${result.flags[0].pillar}</p>`;
+    html += `<p style="font-size: 12px; color: #68706a;">${result.flags[0].pillar}</p>`;
     html += `<p>One first step: ${result.flags[0].step}</p>`;
     if (result.flags.length > 1) {
       html += `<p style="font-size: 13px; margin-top: 12px;">Also flagged: ${result.flags
@@ -189,6 +190,7 @@ export default function HealthCheckPage() {
               resultsSummary: generateResultsSummaryHtml(result, name)
             }}
           />
+           <p className="mt-3 text-[0.8rem] text-muted-foreground">{COPY.privacy}</p>
           <hr className="my-6 border-line" /><h3>THE NEXT STEP</h3><p className="mt-2">Our Diagnostic tests tell you how you respond to money.</p> <p className="mt-2">Knowledge and a plan helps you build wealth. Join the Money simplified course today for the knowledge and tools to build and manage wealth. The link is below.</p><div className="mt-3"><BrandAnchor variant="primary" href="https://moneysimplified.chonzzi.com/shop">SEE THE MONEY SIMPLIFIED COURSE →</BrandAnchor></div>
           <p className="mt-4 text-[0.85rem] text-muted-foreground">Next: <Link to="/assessments/personality" className="text-emerald">discover your Money Personality</Link> or <Link to="/assessments/risk-profile" className="text-emerald">find your Risk Profile</Link>.</p>
         </div>}

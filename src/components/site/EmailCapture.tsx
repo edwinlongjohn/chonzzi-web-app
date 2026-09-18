@@ -54,7 +54,7 @@ export function EmailCapture({
   const [name, setName] = useState("");
   const [msg, setMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, _setIsSuccess] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   const [subscribe] = useSubscribeMutation();
@@ -136,7 +136,7 @@ export function EmailCapture({
 
       // Show success message
       setMsg(successMessage);
-      //setIsSuccess(true);
+      setIsSuccess(true);
       toast.success(successMessage);
       
       // Clear form

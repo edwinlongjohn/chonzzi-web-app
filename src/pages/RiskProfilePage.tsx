@@ -6,6 +6,7 @@ import { Eyebrow } from "@/components/site/Eyebrow";
 import { BrandAnchor } from "@/components/site/BrandButton";
 import { QuizWizard, QuizIntroCard, type WizardQuestion } from "@/components/quiz/QuizWizard";
 import { ResultGate } from "@/components/quiz/ResultGate";
+import { COPY } from "@/lib/moneyPersonality";
 import {
   RP_Q,
   RP_DIMS,
@@ -238,6 +239,7 @@ export default function RiskProfilePage() {
                  
                 }}
               />
+               <p className="mt-3 text-[0.8rem] text-muted-foreground">{COPY.privacy}</p>
 
               {/* Block 6 — Closing CTA */}
               <hr className="my-6 border-line" />
