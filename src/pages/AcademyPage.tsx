@@ -57,7 +57,7 @@ export default function AcademyPage() {
                 foundation, so you stop guessing and start deciding.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
-                <BrandAnchor variant="gold" href="https://moneysimplified.chonzzi.com/course">
+                <BrandAnchor variant="gold" href="https://moneysimplified.chonzzi.com/moneycourse">
                   Enrol in the Course, ₦35,000
                 </BrandAnchor>
                 <a
@@ -312,7 +312,7 @@ export default function AcademyPage() {
                 </p>
               </div>
               <div className="flex md:justify-end">
-                <BrandAnchor variant="gold" href="https://moneysimplified.chonzzi.com/course">
+                <BrandAnchor variant="gold" href="https://moneysimplified.chonzzi.com/moneycourse">
                   Enrol, ₦35,000
                 </BrandAnchor>
               </div>
